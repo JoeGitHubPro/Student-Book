@@ -1,0 +1,37 @@
+﻿
+
+@model Student_Book.Link
+@using Student_Book.Controllers
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>
+        @Html.DisplayNameFor(model => model.Pdf_Name)
+    </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pdf_Name)
+        </dt>
+
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject.Subject_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
+    {
+        @Html.ActionLink("Edit | ", "Edit", new { id = Model.Id_Link })
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+

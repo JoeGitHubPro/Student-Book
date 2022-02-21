@@ -1,0 +1,366 @@
+﻿@*@model IEnumerable<Student_Book.Subject>
+    @using Student_Book.Controllers
+    @{
+        ViewBag.Title = "Index";
+    }
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset='UTF-8'>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+        <script src='https://unpkg.com/react@16.3.1/umd/react.production.min.js'></script>
+        <script src='https://unpkg.com/react-dom@16.3.1/umd/react-dom.production.min.js'></script>
+        <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js'></script>
+        <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+        <style>
+            body {
+                background-color: white;
+                font-family: 'Ubuntu', sans-serif;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .main {
+                width: 100%;
+            }
+
+            .top-div {
+                background-color: rgb(0, 0, 0);
+                height: 50px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                position: relative;
+            }
+
+            h3 {
+                color: white;
+                padding-left: 20px;
+                padding-right: 70%;
+            }
+
+            .log-out {
+                height: 35px;
+                width: 120px;
+                position: absolute;
+                right: 20px;
+                font-weight: bold;
+                font-size: 17px;
+                border-radius: 5px;
+            }
+
+            .search-div {
+                height: 150px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            input {
+                width: 300px;
+                height: 40px;
+                border-radius: 5px;
+                border-width: 1px;
+                background-color: rgb(238, 238, 238);
+                padding-left: 10px;
+                padding-right: 10px;
+                font-size: 16px;
+            }
+
+            .about-us {
+                padding-left: 15px;
+                padding-right: 15px;
+                font-size: large;
+                line-height: 28px;
+            }
+
+            .items-main-div {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .item-div {
+                background-color: rgb(31, 31, 31);
+                width: 450px;
+                height: 170px;
+                margin: auto;
+                margin-bottom: 50px;
+                border-radius: 10px;
+            }
+
+            @@media only screen and (max-width: 600px) {
+                .item-div {
+                    background-color: rgb(31, 31, 31);
+                    width: 90%;
+                    height: 170px;
+                    margin: auto;
+                    margin-bottom: 50px;
+                    border-radius: 10px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id='root'></div>
+
+        <script type='text/babel'>
+              const Link = ReactRouterDOM.Link;
+              const Route = ReactRouterDOM.Route;
+
+              const App = () => (
+                <ReactRouterDOM.HashRouter>
+                  <Route path="/" exact component={Home} />
+                </ReactRouterDOM.HashRouter>
+              )
+
+              const about = "Lorem ipsum dolor sit amet, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+              const Home = () => {
+                return(
+                    <div className="main">
+                        <div className="about-us">
+                            <h2>About Us : </h2>
+                            <p>
+                                {about}
+                            </p>
+                        </div>
+                        <div className="search-div">
+                            <input type="search" />
+                        </div>
+                        <div className="items-main-div">
+             @foreach (var item in Model)
+             {
+                            <button className="item-div">
+                                <h3>-@Html.DisplayFor(modelItem => item.Subject_Name)</h3>
+                                <h3>@Html.DisplayFor(modelItem => item.Subject_Descrption)</h3>
+                   @if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
+                    {
+                             <button>
+                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id_Subject })
+                                </button>
+                                <button>
+                                 @Html.ActionLink("Details", "Details", new { id = item.Id_Subject })
+                                </button>
+                                <button>
+                                 @Html.ActionLink("Delete", "Delete", new { id = item.Id_Subject })
+                                </button>
+                    }
+                    else
+                    {
+                       <button>
+                        @Html.ActionLink("Details", "Details", new { id = item.Id_Subject })
+                         </button>
+
+                    }
+
+                            </button>
+             }
+
+                        </div>
+
+
+                    </div>
+                )
+            }
+
+
+              ReactDOM.render(<App />, document.querySelector('#root'));
+        </script>
+    </body>
+    </html>*@
+
+@model IEnumerable<Student_Book.Subject>
+@using Student_Book.Controllers
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <script src='https://unpkg.com/react@16.3.1/umd/react.production.min.js'></script>
+    <script src='https://unpkg.com/react-dom@16.3.1/umd/react-dom.production.min.js'></script>
+    <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js'></script>
+    <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+    <style>
+        body {
+            background-color: white;
+            font-family: 'Ubuntu', sans-serif;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .main {
+            width: 100%;
+        }
+
+        .top-div {
+            background-color: rgb(0, 0, 0);
+            height: 50px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        h3 {
+            color: white;
+            padding-left: 20px;
+            padding-right: 60%;
+        }
+
+        h1 {
+            color: #545148;
+            position: center;
+        }
+
+        .log-out {
+            height: 35px;
+            width: 120px;
+            position: absolute;
+            right: 20px;
+            font-weight: bold;
+            font-size: 17px;
+            border-radius: 5px;
+        }
+
+        .search-div {
+            height: 150px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            width: 300px;
+            height: 40px;
+            border-radius: 5px;
+            border-width: 1px;
+            background-color: rgb(238, 238, 238);
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 16px;
+        }
+
+        .about-us {
+            padding-left: 15px;
+            padding-right: 15px;
+            font-size: large;
+            line-height: 28px;
+        }
+
+        .items-main-div {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .item-div {
+            background-color: rgb(31, 31, 31);
+            width: 450px;
+            height: 170px;
+            margin: auto;
+            margin-bottom: 50px;
+            border-radius: 10px;
+        }
+
+        @@media only screen and (max-width: 600px) {
+            .item-div {
+                background-color: rgb(31, 31, 31);
+                width: 90%;
+                height: 170px;
+                margin: auto;
+                margin-bottom: 50px;
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id='root'></div>
+
+    <script type='text/babel'>
+          const Link = ReactRouterDOM.Link;
+          const Route = ReactRouterDOM.Route;
+
+          const App = () => (
+            <ReactRouterDOM.HashRouter>
+              <Route path="/" exact component={Home} />
+            </ReactRouterDOM.HashRouter>
+          )
+         const About ="About Us...";
+          const about = "Lorem ipsum dolor sit amet, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+          const Home = () => {
+            return(
+                <div className="main">
+                    <div className="about-us">
+                    <br/>
+                    <br/>
+                    <h2> {About} </h2>
+                        <p>
+
+                            {about}
+                        </p>
+                    </div>
+                    <div className="search-div">
+                        @*<input type="search" />*@
+                          <h1>Subjects</h1>
+                    </div>
+
+                    <div className="items-main-div">
+        @{int r = 0; }
+             @foreach (var item in Model)
+             {
+                 r++;
+                            <button className="item-div">
+                                <h3>@r.ToString() - @Html.DisplayFor(modelItem => item.Subject_Name)</h3>
+                                <h3>@Html.DisplayFor(modelItem => item.Subject_Descrption)</h3>
+                   @if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
+                    {
+
+                               <button>
+                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id_Subject })
+                                </button>
+                                <button>
+                                 @Html.ActionLink("Links", "Details", new { id = item.Id_Subject })
+                                </button>
+                                <button>
+                                 @Html.ActionLink("Delete", "Delete", new { id = item.Id_Subject })
+                                </button>
+                    }
+                    else
+                    {
+                       <button>
+                        @Html.ActionLink("Links", "Details", new { id = item.Id_Subject })
+                         </button>
+
+                    }
+
+                            </button>
+             }
+
+
+
+                        </div>
+
+                </div>
+            )
+        }
+
+
+          ReactDOM.render(<App />, document.querySelector('#root'));
+    </script>
+</body>
+</html>
