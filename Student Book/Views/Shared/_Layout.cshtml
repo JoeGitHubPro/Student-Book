@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>ZaKer</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/favicone.ico" rel="icon">
 
 </head>
-<body>
+<body style="background-image: url('../assets/images/Home.jpg'); ">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -24,6 +25,7 @@
                 <ul class="nav navbar-nav">
 
                     <li>@Html.ActionLink("Subjects", "Index", "Subjects")</li>
+                    <li>@Html.ActionLink("Saved Subjects", "Index", "favs")</li>
                     @if (User.IsInRole(RoleName.Admin))
                     {
                         <li>@Html.ActionLink("Links", "Index", "Links")</li>
@@ -40,18 +42,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer class="bg-light text-center text-lg-start navbar navbar-fixed-bottom">
-            <!-- Copyright -->
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
 
-                <strong>
-                    © @DateTime.Now.Year.ToString() Copyright:
-                    @Html.ActionLink("ArrayEZ.Co", "Index", "Home")
-                </strong>
-
-            </div>
-            <!-- Copyright -->
-        </footer>
 
     </div>
 

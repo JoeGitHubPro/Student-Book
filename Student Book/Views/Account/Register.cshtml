@@ -29,10 +29,9 @@
         <div class="col-md-10">
             @Html.DropDownList("RoleName", new List<SelectListItem>
              {
-
-           new SelectListItem { Text = RoleName.Admin, Value = RoleName.Admin },
+           new SelectListItem { Text = RoleName.Trainer, Value = RoleName.Trainer },
            new SelectListItem { Text = RoleName.Manger, Value = RoleName.Manger },
-           new SelectListItem { Text = RoleName.Trainer, Value = RoleName.Trainer }
+           new SelectListItem { Text = RoleName.Admin, Value = RoleName.Admin }
             })
         </div>
     </div>

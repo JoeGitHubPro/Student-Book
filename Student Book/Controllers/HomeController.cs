@@ -11,8 +11,9 @@ namespace Student_Book.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            return View(); //youssef
         }
+        [AllowAnonymous]
 
         public ActionResult About()
         {
@@ -20,7 +21,7 @@ namespace Student_Book.Controllers
 
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

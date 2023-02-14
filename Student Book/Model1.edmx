@@ -66,6 +66,14 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="fav">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Id Subject" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Id Subject" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Link">
           <Key>
             <PropertyRef Name="Id Link" />
@@ -95,6 +103,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__fav__Id Subject__49C3F6B7">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="fav" Type="Self.fav" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id Subject" />
+            </Principal>
+            <Dependent Role="fav">
+              <PropertyRef Name="Id Subject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__fav__UserName__4AB81AF0' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__fav__UserName__4AB81AF0" />-->
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -158,11 +181,16 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fav" EntityType="Self.fav" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Link" EntityType="Self.Link" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="Fk" Association="Self.Fk">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="Link" EntitySet="Link" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fav__Id Subject__49C3F6B7" Association="Self.FK__fav__Id Subject__49C3F6B7">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="fav" EntitySet="fav" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -208,6 +236,11 @@
           <AssociationSet Name="AspNetUserRoles" Association="ScienceModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="favs" EntityType="ScienceModel.fav" />
+          <AssociationSet Name="FK__fav__Id_Subject__49C3F6B7" Association="ScienceModel.FK__fav__Id_Subject__49C3F6B7">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="fav" EntitySet="favs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -287,6 +320,7 @@
           <Property Name="Subject_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Subject_Descrption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Links" Relationship="ScienceModel.Fk" FromRole="Subject" ToRole="Link" />
+          <NavigationProperty Name="favs" Relationship="ScienceModel.FK__fav__Id_Subject__49C3F6B7" FromRole="Subject" ToRole="fav" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="ScienceModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -331,6 +365,27 @@
         <Association Name="AspNetUserRoles">
           <End Type="ScienceModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="ScienceModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="fav">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Id_Subject" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Subject" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Subject" Relationship="ScienceModel.FK__fav__Id_Subject__49C3F6B7" FromRole="fav" ToRole="Subject" />
+        </EntityType>
+        <Association Name="FK__fav__Id_Subject__49C3F6B7">
+          <End Type="ScienceModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="ScienceModel.fav" Role="fav" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id_Subject" />
+            </Principal>
+            <Dependent Role="fav">
+              <PropertyRef Name="Id_Subject" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -420,6 +475,14 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="favs">
+            <EntityTypeMapping TypeName="ScienceModel.fav">
+              <MappingFragment StoreEntitySet="fav">
+                <ScalarProperty Name="Id_Subject" ColumnName="Id Subject" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

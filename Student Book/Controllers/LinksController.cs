@@ -18,16 +18,26 @@ namespace Student_Book.Controllers
         public ActionResult Index()
         {
             var links = db.Links/*.Include(l => l.Link11).Include(l => l.Link2).Include(l => l.Subject)*/;
+            if (User.IsInRole(RoleName.Admin))
+            {
+                return View(links.ToList());
 
-            return View(links.ToList());
+            }
+            else
+            {
+                return View("Error");
+            }
 
 
         }
 
-        // GET: Links/Details/5
-        public ActionResult Details(int? id)
-        {
+       
 
+            // GET: Links/Details/5
+            public ActionResult Details(int? id)
+            {
+            
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,16 +48,17 @@ namespace Student_Book.Controllers
                 return HttpNotFound();
             }
             return View(link);
-        }
-
-        // GET: Links/Create
-        public ActionResult Create()
-        {
+            }
+     
+            // GET: Links/Create
+            public ActionResult Create()
+            {
             ViewBag.Id_Link = new SelectList(db.Links, "Id_Link", "Pdf_Name");
             ViewBag.Id_Link = new SelectList(db.Links, "Id_Link", "Pdf_Name");
             ViewBag.Id_Subject = new SelectList(db.Subjects, "Id_Subject", "Subject_Name");
+           
             return View();
-        }
+            }
 
         // POST: Links/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -60,12 +71,14 @@ namespace Student_Book.Controllers
             {
                 db.Links.Add(link);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                int ID = Convert.ToInt32( TempData["id"]);
+             return RedirectToAction("Details", "Subjects", new {id = ID});
             }
 
             ViewBag.Id_Link = new SelectList(db.Links, "Id_Link", "Pdf_Name", link.Id_Link);
             ViewBag.Id_Link = new SelectList(db.Links, "Id_Link", "Pdf_Name", link.Id_Link);
             ViewBag.Id_Subject = new SelectList(db.Subjects, "Id_Subject", "Subject_Name", link.Id_Subject);
+            
             return View(link);
         }
 
@@ -114,10 +127,10 @@ namespace Student_Book.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Link link = db.Links.Find(id);
-            if (link == null)
-            {
-                return HttpNotFound();
-            }
+            //if (link == null)
+            //{
+            //    return HttpNotFound();
+            //}
             return View(link);
         }
 

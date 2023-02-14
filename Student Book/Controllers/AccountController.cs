@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Student_Book.Models;
+using static System.Collections.Specialized.BitVector32;
+using static System.Web.HttpSessionStateBase;
 
 namespace Student_Book.Controllers
 {
@@ -21,7 +23,8 @@ namespace Student_Book.Controllers
         public AccountController()
         {
         }
-
+      
+       
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -90,7 +93,14 @@ namespace Student_Book.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                   return RedirectToLocal(returnUrl);
+                //{ my code
+                //    if (Url.IsLocalUrl(returnUrl))
+                //    {
+                //        return Redirect(returnUrl);
+                //    }
+                //    return RedirectToAction("Index", "Home", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                //}
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -101,7 +111,7 @@ namespace Student_Book.Controllers
                     return View(model);
             }
         }
-
+      
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -462,7 +472,7 @@ namespace Student_Book.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Subjects");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

@@ -18,8 +18,11 @@ namespace Student_Book.Controllers
         public ActionResult Index()
         {
             return View(db.Subjects.ToList());
-        }
 
+
+
+        }
+       
 
         // GET: Subjects/Details/5
         public ActionResult Details(int? id)
@@ -30,15 +33,43 @@ namespace Student_Book.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Link Link = db.Links.Find(id);
-            if (Link == null)
+            if (db.Links.ToList().Where(x => x.Id_Subject == id) == null)
             {
-                return HttpNotFound();
+                return View("LinkErorr");
+              //  return HttpNotFound();
 
             }
-            ViewBag.Subject = db.Subjects.Find(id).Subject_Name.ToString();
+            string name = db.Subjects.Find(id).Subject_Name.ToString();
+            ViewBag.Subject = name;
+            TempData["Subjectid"] = id;
+            TempData["id"] = id;
+            TempData["Subjectname"] = name;
             ViewBag.SubjectDescrption = db.Subjects.Find(id).Subject_Descrption.ToString();
 
             return View(db.Links.ToList().Where(x => x.Id_Subject == id));
+        }
+
+        public ActionResult Search(string S)
+        {
+            S = S.ToUpper();
+            if (S == null||S=="")
+            {
+                return View("Error");
+
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<Student_Book.Subject> subject = db.Subjects.ToList();
+            Subject Sub = subject.Where(x => x.Subject_Descrption == S).Single();
+            if (db.Subjects.ToList().Where(x => x.Subject_Descrption == S) == null)
+            {
+                return View("LinkErorr");
+                //  return HttpNotFound();
+
+            }
+            ViewBag.Subject = db.Subjects.Find(Sub.Id_Subject).Subject_Name.ToString();
+            ViewBag.SubjectDescrption = db.Subjects.Find(Sub.Id_Subject).Subject_Descrption.ToString();
+
+            return View("Details", db.Links.ToList().Where(x => x.Id_Subject == Sub.Id_Subject));
         }
 
         // GET: Subjects/Create
@@ -56,6 +87,7 @@ namespace Student_Book.Controllers
         {
             if (ModelState.IsValid)
             {
+               subject.Subject_Descrption = subject.Subject_Descrption.ToUpper();  
                 db.Subjects.Add(subject);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -88,6 +120,7 @@ namespace Student_Book.Controllers
         {
             if (ModelState.IsValid)
             {
+                subject.Subject_Descrption = subject.Subject_Descrption.ToUpper();
                 db.Entry(subject).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,7 +128,7 @@ namespace Student_Book.Controllers
             return View(subject);
         }
 
-        // GET: Subjects/Delete/5
+       // GET: Subjects/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +141,7 @@ namespace Student_Book.Controllers
                 return HttpNotFound();
             }
             return View(subject);
+
         }
 
         // POST: Subjects/Delete/5
@@ -120,6 +154,8 @@ namespace Student_Book.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+       // GET: Links/Delete/5
+    
 
         protected override void Dispose(bool disposing)
         {

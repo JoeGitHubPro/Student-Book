@@ -18,6 +18,7 @@ namespace Student_Book
         public Subject()
         {
             this.Links = new HashSet<Link>();
+            this.favs = new HashSet<fav>();
         }
     
         public int Id_Subject { get; set; }
@@ -26,5 +27,7 @@ namespace Student_Book
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Link> Links { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<fav> favs { get; set; }
     }
 }

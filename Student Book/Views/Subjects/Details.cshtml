@@ -1,47 +1,131 @@
 ﻿@model IEnumerable<Student_Book.Link>
 @using Student_Book.Controllers
-@{
-    ViewBag.Title = "Index";
-}
+@{ Layout = null;}
+@* ======================================================================================================== *@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ZaKer</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/favicone.ico">
 
-<h2><strong>@ViewBag.Subject</strong></h2>
+    <!--enable mobile device-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--fontawesome css-->
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <!--bootstrap css-->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <!--animate css-->
+    <link rel="stylesheet" href="~/assets/css/animate-wow.css">
+    <!--main css-->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="~/assets/css/slick.min.css">
+    <link rel="stylesheet" href="~/assets/css/pricing.css">
+    <!--responsive css-->
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
 
-<h5>
-    @ViewBag.SubjectDescrption
-</h5>
-@if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
-{
-    <h5>  @Html.ActionLink("Create New", "Create", "Links")  </h5>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Pdf_Name)
-        </th>
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    <li>@Html.ActionLink("Subjects", "Index", "Subjects")</li>
+                    <li>@Html.ActionLink("Saved Subjects", "Index", "favs")</li>
+
+                    @if (User.IsInRole(RoleName.Admin))
+                    {
+                        <li>@Html.ActionLink("Links", "Index", "Links")</li>
+                    }
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
 
-        <th></th>
-    </tr>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+
+    <div class="page-template-pricing">
+        <div class="section-pricing">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2>@ViewBag.Subject</h2>
+                        <p class="lead" style="color: #0f1114">
+                            @ViewBag.SubjectDescrption
+                        </p>
+                        @if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
+                        {
+                            <a class="btn btn-primary btn-sm btn-lg" href="/Links/Create">Create New</a>
+                            @*@Html.ActionLink("Create New", "Create", "Links", new { @class = "btn btn-primary btn-sm btn-lg" })*@
+                        }
+                    </div>
+                </div>
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-lg-3 col-sm-6 col-md-3">
+                        <div class="pricing-container wow fadeIn" data-wow-delay="0.2s">
+                            <div class="pricing-list bounce-invert">
+                                <div class="pricing-wrapper">
+
+                                    <div data-type="monthly" class="is-visible">
+                                        <header style="background-color: #2b2b2b;opacity:0.9 " class="pricing-header">
+                                            <h2>@Html.DisplayFor(modelItem => item.Pdf_Name)</h2>
+
+                                        </header>
+                                        <div class="pricing-body" style="text-align: center; background-color: #353536" ; opacity:0.8>
+                                            @if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
+                                            {
 
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
+                                                @Html.ActionLink("Edit", "Edit", "Links", new { id = item.Id_Link }, new { @class = "btn btn-primary btn-sm btn-lg" })
+                                                @Html.ActionLink("Details", "Details", "Links", new { id = item.Id_Link }, new { @class = "btn btn-primary btn-sm btn-lg" })
+                                                @Html.ActionLink("Delete", "Delete", "Links", new { id = item.Id_Link }, new { @class = "btn btn-primary btn-sm btn-lg" })
 
-                <a href="@Html.DisplayFor(modelItem => item.Link1)">@Html.DisplayFor(modelItem => item.Pdf_Name)</a>
 
-            </td>
-            @if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
-            {
+                                            }
 
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id_Link }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id_Link }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id_Link })
-                </td>
-            }
-        </tr>
-    }
 
-</table>
+                                            <a class="select" href="@Html.DisplayFor(modelItem => item.Link1)">Open</a>
+                                        </div>
+                                       </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                }
+                <!--main js-->
+                <script src="~/assets/js/jquery-1.12.4.min.js"></script>
+                <!--bootstrap js-->
+                <script src="~/assets/js/bootstrap.min.js"></script>
+                <script src="~/assets/js/bootstrap-select.min.js"></script>
+                <script src="~/assets/js/slick.min.js"></script>
+                <script src="~/assets/js/index.js"></script>
+                <script src="~/assets/js/wow.min.js"></script>
+                <!--custom js-->
+                <script src="~/assets/js/custom.js"></script>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

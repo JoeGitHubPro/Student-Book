@@ -1,0 +1,197 @@
+﻿@model IEnumerable<Student_Book.Subject>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+@using Microsoft.AspNet.Identity
+@using Student_Book.Controllers
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zaker</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="~/favicone.ico">
+
+    <!--enable mobile device-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--fontawesome ~/assets/css-->
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <!--bootstrap ~/assets/css-->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <!--animate ~/assets/css-->
+    <link rel="stylesheet" href="~/assets/css/animate-wow.css">
+    <!--main ~/assets/css-->
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="~/assets/css/slick.min.css">
+    <!--responsive ~/assets/css-->
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+</head>
+<body>
+    <header id="header" class="top-head">
+    </header>
+    <!-- Modal -->
+    <div class="modal fade lug" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change</h4>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li><a href="#"><img src="~/assets/images/flag-up-1.png" alt="" /> United States</a></li>
+                        <li><a href="#"><img src="~/assets/images/flag-up-2.png" alt="" /> France </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    <li>@Html.ActionLink("Subjects", "Index", "Subjects")</li>
+                    <li>@Html.ActionLink("Saved Subjects", "Index", "favs")</li>
+
+                    @if (User.IsInRole(RoleName.Admin))
+                    {
+                        <li>@Html.ActionLink("Links", "Index", "Links")</li>
+                    }
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="page-content-product">
+        <div class="main-product">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="find-box">
+                        <h1 style="color:black ; opacity : 0.8">My Subjects</h1>
+                        <hr />
+                        <div style="text-align:center">
+
+
+                            @if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
+                            {
+                                @Html.ActionLink("Create New", "Create")
+                                <hr />
+
+                            }
+                        </div>
+
+                        <div style="text-align:center">
+                            <div style="text-align: center; margin: auto; width: 35%; padding: 10px;">
+                                <input class="form-control" type="text" id="myText" placeholder="Search by Subject Code" aria-label="Search by Subject Code" style="text-align:center">
+
+                            </div>
+                            <br />
+                            <button style=" background-color: #3d444a;color:white" class="btn btn-light" type="button" id="myButton">Go To &#x2192;</button>
+                        </div>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+                        <script>
+                            document.getElementById("myButton").onclick = function () {
+
+                                var inputValue = document.getElementById("myText").value;
+                                window.location.href = '/Subjects/Search?S=' + inputValue;
+
+                            }
+                            $("#myText").keypress(function (event) {
+                                if (event.keyCode == 13) {
+                                    $("#myButton").click();
+                                }
+                            });
+                            $("#myButton").click(function () { });
+                        </script>
+
+
+
+
+                    </div>
+                </div>
+                @{ bool B = false;} 
+            <div class="row clearfix">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-sm-6 col-md-3">
+                        <a href="~/Subjects/Details/@item.Id_Subject">
+                            <div class="box-img">
+                                <h4>@Html.DisplayFor(modelItem => item.Subject_Name)</h4>
+                                <h5>@Html.DisplayFor(modelItem => item.Subject_Descrption)</h5>
+                            </div>
+                        </a>
+                        <div style="text-align:center">
+                            @{
+                                string username = User.Identity.GetUserName().ToString();
+                                int subjectid = item.Id_Subject;
+                                B = true;
+                            }
+
+                            @Html.ActionLink("Un-Save", "Delete", new { SubjectID = item.Id_Subject }, new { @class = "btn btn-primary btn-sm btn-lg" })
+                            @if (User.IsInRole(RoleName.Admin))
+                            {
+                                <hr />
+
+
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id_Subject }, new { @class = "btn btn-primary btn-sm btn-lg" })
+
+                                @Html.ActionLink("Links", "Details", new { id = item.Id_Subject }, new { @class = "btn btn-primary btn-sm btn-lg" })
+
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id_Subject }, new { @class = "btn btn-primary btn-sm btn-lg" })
+
+                            }
+                            <hr />
+                        </div>
+                    </div>
+
+                }
+                @if (!B)
+                {
+            <div class="alert alert-info" style="text-align:center">
+                <strong>Info! &nbsp;</strong> There is not subjects yet &nbsp;<a href="#" class="alert-link">Go to Subjects</a>.
+            </div>
+                    
+                }
+
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--main js-->
+    <script src="~/assets/~/assetsjs/jquery-1.12.4.min.js"></script>
+    <!--bootstrap js-->
+    <script src="~/assetsjs/bootstrap.min.js"></script>
+    <script src="~/assetsjs/bootstrap-select.min.js"></script>
+    <script src="~/assetsjs/slick.min.js"></script>
+    <script src="~/assetsjs/wow.min.js"></script>
+    <!--custom js-->
+    <script src="~/assetsjs/custom.js"></script>
+
+</body>
+
+</html>
+
+

@@ -24,15 +24,20 @@
             </div>*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Id_Subject, "Id_Subject", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Id_Subject, "Id Subject", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Id_Subject", null, htmlAttributes: new { @class = "form-control" })
+
+                
+                <select class="form-control" id="Id_Subject" name="Id_Subject">
+                    <option value="@TempData["Subjectid"]">@TempData["Subjectname"]</option>
+                </select>
+                @*@Html.DropDownList("Id_Subject", new List<SelectListItem> { new SelectListItem { Text = "Discrete Mathematics", Value = "13" } }, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.Id_Subject, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Pdf_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Pdf_Name, "Pdf Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Pdf_Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Pdf_Name, "", new { @class = "text-danger" })
@@ -40,7 +45,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Link1, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Link1, "Link", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Link1, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Link1, "", new { @class = "text-danger" })
@@ -56,7 +61,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Subjects")
 </div>
 
 @section Scripts {

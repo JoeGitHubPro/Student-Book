@@ -32,5 +32,6 @@ namespace Student_Book
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Link> Links { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<fav> favs { get; set; }
     }
 }

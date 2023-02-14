@@ -9,7 +9,7 @@
 @if (User.IsInRole(RoleName.Admin) || User.IsInRole(RoleName.Manger))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create","Links")
     </p>
 }
 <table class="table">

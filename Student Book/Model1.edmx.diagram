@@ -4,18 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1e0472c8d60d4a4d92ec6465fde6b671" Name="Diagram1" ZoomLevel="109">
-        <EntityTypeShape EntityType="ScienceModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="6.75" />
-        <EntityTypeShape EntityType="ScienceModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="ScienceModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="3.625" />
+      <Diagram DiagramId="1e0472c8d60d4a4d92ec6465fde6b671" Name="Diagram1" ZoomLevel="52">
+        <EntityTypeShape EntityType="ScienceModel.C__MigrationHistory" Width="1.5" PointX="7.25" PointY="0.875" />
+        <EntityTypeShape EntityType="ScienceModel.AspNetRole" Width="1.5" PointX="0.625" PointY="4.625" />
+        <EntityTypeShape EntityType="ScienceModel.AspNetUserClaim" Width="1.5" PointX="5.5" PointY="3.125" />
         <EntityTypeShape EntityType="ScienceModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="1" />
         <EntityTypeShape EntityType="ScienceModel.AspNetUser" Width="1.5" PointX="3" PointY="1.375" />
-        <EntityTypeShape EntityType="ScienceModel.Link" Width="1.5" PointX="3" PointY="6.875" />
-        <EntityTypeShape EntityType="ScienceModel.Subject" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="ScienceModel.Link" Width="1.5" PointX="7.375" PointY="5.125" />
+        <EntityTypeShape EntityType="ScienceModel.Subject" Width="1.5" PointX="9.25" PointY="2.375" />
         <AssociationConnector Association="ScienceModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ScienceModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="ScienceModel.Fk" />
+        <AssociationConnector Association="ScienceModel.Fk" ManuallyRouted="true" >
+          <ConnectorPoint PointX="9.65625" PointY="4.3552864583333353" />
+          <ConnectorPoint PointX="9.65625" PointY="6.8192350260416656" />
+          <ConnectorPoint PointX="8.875" PointY="6.8192350260416656" />
+        </AssociationConnector>
         <AssociationConnector Association="ScienceModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="ScienceModel.fav" Width="1.5" PointX="10.125" PointY="4.875" />
+        <AssociationConnector Association="ScienceModel.FK__fav__Id_Subject__49C3F6B7" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

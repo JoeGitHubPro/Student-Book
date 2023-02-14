@@ -2,9 +2,11 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>Science Refrences</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+<div class="jumbotron" style="opacity: 0.8;">
+    <h1>ZA<strong>K</strong>ER.com</h1>
+    <p class="lead">
+        This site is made to collect most of the subjects data of the department To facilitate the learning process for department's students
+    </p>
     @*@Html.ActionLink("Log In...", "Login", "Account", new { area = "" }, new { @class = "btn btn-primary btn-lg" })*@
 
 </div>
@@ -13,20 +15,29 @@
     <div class="col-md-4">
         <h2>Subjects...</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Here you can find most of the department's subjects.
+            We are working on the rest of the subjects :)
         </p>
         @Html.ActionLink("Subjects", "Index", "Subjects", new { area = "" }, new { @class = "btn btn-primary btn-sm btn-lg" })
     </div>
-    <div class="col-md-4">
-        <h2>Links...</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        @Html.ActionLink("Links", "Index", "Links", new { area = "" }, new { @class = "btn btn-primary btn-sm btn-lg" })
-    </div>
+    @*<div class="col-md-4">
+            <h2>Log In...</h2>
+            <p></p>
+            @Html.ActionLink("Log In", "Login", "Account", new { area = "" }, new { @class = "btn btn-primary btn-sm btn-lg" })
+        </div>*@
+<div class="col-md-4">
+    <h2>Saved Subjects</h2>
+    <p>
+        There is Subjects that you had been saved from exsisting subjects at site.
+    </p>
+     @Html.ActionLink("Saved Subjects", "Index", "favs", new { area = "" }, new { @class = "btn btn-primary btn-sm btn-lg" })
+    
+</div>
     <div class="col-md-4">
         <h2>About us...</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-sm btn-lg">About Us</a></p>
+        <p>
+            We're a software company that focuses on empowering small businesses with business automation tools
+        </p>
+        <p><a href="https://icecode.herokuapp.com/" class="btn btn-primary btn-sm btn-lg">About Us</a></p>
     </div>
 </div>
