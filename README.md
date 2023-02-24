@@ -22,7 +22,7 @@
 ## Deploy DataBase
 
 ```sh
-Run SQL file at this location [https://github.com/JoeGitHubPro/TravelAgancyPro/blob/master/TravelAgancySQLQuery.sql] on database server
+Run SQL file at this location [https://github.com/JoeGitHubPro/Student-Book/blob/master/DBscript.txt] on database server
 ```
 
 ## Deploy
